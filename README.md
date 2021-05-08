@@ -488,7 +488,7 @@ class InterActiefIntervalClock extends LitElement {
               <ia-button value="add time" primary @click="${() => this.addNewtime()}"></ia-button>
             </div>
           </ia-card>
-	    	`;
+     `;	
   }
 
   addNewtime() {

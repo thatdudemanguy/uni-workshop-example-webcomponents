@@ -30,7 +30,7 @@ customeElements.define('my-awesome-component', MyAwesomeComponent);
 ```
    
 
-This is the bare basics of custom Web Components, which has enough lifeCycle methods to make things interesting, but it's not enough to board the ship. Which is why we'll use litElement and litHTML. Two libraries making its way down the path of becoming web standards.
+This is the bare basics of custom Web Components, which has enough lifeCycle methods to make things interesting, but it's not enough to board the ship. Which is why we'll use litElement and litHTML. Two libraries making their way down the path of becoming web standards.
  
 
 ## lit

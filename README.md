@@ -150,7 +150,7 @@ Everything starts with a good button.
 
   
 
-/components/button/ia-button.js contains the file to start with.
+`/components/button/ia-button.js` contains the file to start with.
 
   
 
@@ -207,8 +207,8 @@ Now we can pass a variable to each instance of the component.
 
   
 ```html
-<ia-button  value="Lorem"></ia-button>
-<ia-button  value="Ipsum"></ia-button>
+<ia-button value="Lorem"></ia-button>
+<ia-button value="Ipsum"></ia-button>
 ```
   
 
@@ -297,25 +297,25 @@ Go to `index.js` and add primary or secondary to the button like so:
 
   
 
-It could look a bit like this:
+The styling I used:
 ```css
 :host([primary]) button {
-background-color: #4CAF50;
-border: 2px solid #4CAF50;
+	background-color: #4CAF50;
+	border: 2px solid #4CAF50;
 }
 
 :host([primary]) button:hover {
-background-color: #37903b;
-border: 2px solid #37903b;
+	background-color: #37903b;
+	border: 2px solid #37903b;
 }
 
 :host([secondary]) button {
-background-color: #bfbfbf;
-border: 2px solid white;
+	background-color: #bfbfbf;
+	border: 2px solid white;
 }
 
 :host([secondary]) button:hover {
-background-color: #cfcfcf;
+	background-color: #cfcfcf;
 }
 ```
 
@@ -371,7 +371,7 @@ Colours are not the only thing you can define in a global styling sheet. Margins
 *a big extra plus is that you only have to change a single parameter to change it across every component*
 
   
-
+Our button is now finished
   
 
 ### card
@@ -441,8 +441,8 @@ Add the following styling
 This card could now be the foundation to create loading icon cards, posts, containers, etc.
 
 ## interval
-The true power in Web Components is not to only make a library of usefull stuff, but combine all components. 
-We now have a button and a card, let's make a third component where we combine them for something custom. 
+The true power in Web Components is not to only make a library of usefull stuff, but to combine all components we have into something bigger. 
+We now have a button and a card, let's make a third component where we combine them for something useful. 
 
 import both components into `interval/interval.js`
 
@@ -466,7 +466,7 @@ render() {
 }
 ```
 we want to display every current time when we press the button.
-So let's add an event listener to the click and push the current time to a properties"times". And let's instantiate the property "times" to an empty array.
+So let's add an event listener to the click and push the current time to a property called `times`. And let's instantiate the property "times" to an empty array.
 
 ```javascript
 class InterActiefIntervalClock extends LitElement {

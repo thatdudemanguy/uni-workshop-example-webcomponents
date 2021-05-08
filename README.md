@@ -19,87 +19,31 @@ I've talked about Web Components a lot now, but what should they mean to you. A 
   
 
 Web Components are completely native to html and JS, therefore you do not need any special setup or imports.
-
-  
-
-  
-
-//javascript
-
-  
-
+```javascript
 class MyAwesomeComponent extends HTMLElement {
-
-  
-
-connectedCallback() { console.log('I'm an awesome component') }
-
-  
-
+  connectedCallback() { console.log('I'm an awesome component') }
 }
-
-  
-
 customeElements.define('my-awesome-component', MyAwesomeComponent);
-
-  
-
-  
-
-// html, component will log 'I'm an awesome component'
-
-  
-
+```
+```html
 <my-awesome-component></my-awesome-component>
-
-  
-
-  
+```
+   
 
 This is the bare basics of custom Web Components, which has enough lifeCycle methods to make things interesting, but it's not enough to board the ship. Which is why we'll use litElement and litHTML. Two libraries making its way down the path of becoming web standards.
-
-  
-
-  
+ 
 
 ## lit
 
-  
-
-  
-
->  [lit-html](https://github.com/Polymer/lit-html) is an efficient,
-
-  
-
+> [lit-html](https://github.com/Polymer/lit-html) is an efficient,
 > expressive and extensible HTML templating library for JavaScript. It
-
-  
-
 > lets you write HTML templates in JavaScript, then efficiently render
+> and re-render those templates together with data to create and update DOM:  
+ 
 
-  
 
-> and re-render those templates together with data to create and update
-
-  
-
-> DOM:
-
-  
-
->
-
-  
-
->  [lit-element](https://github.com/Polymer/lit-element) is a simple
-
-  
-
+> [lit-element](https://github.com/Polymer/lit-element) is a simple
 > base class for creating fast and lightweight web components with
-
-  
-
 > lit-html.
 
   
@@ -117,12 +61,10 @@ As shown in the presentation, [lit-html](https://github.com/Polymer/lit-html) is
   
 
   
-
+```javascript
 import { html } from 'lit-html';
-
-  
-
 const myAwesomeTemplate = html`<h1>hello awesome world!</h1>`
+```
 
   
 
@@ -133,16 +75,11 @@ In itself this is very fast and powerful, but combined with [lit-element](https:
   
 
   
-
+```javascript
 render() {
-
-  
-
-return html`<h1>hello awesome world!</h1>`
-
-  
-
+  return html`<h1>hello awesome world!</h1>`
 }
+```
 
   
 
@@ -169,27 +106,18 @@ It is up to you to determine them and structure your components in a way that is
   
 
   
-
+```css
 p{ color: red }
-
-  
-
+```
+```html
 <p>Hey</p>
+```
 
-  
+should not become
 
-  
-
-// should not become
-
-  
-
-// ... class MyParagraph
-
-  
-
+```html
 <my-paragraph>Hey</my-paragraph>
-
+```
   
 
   
@@ -245,9 +173,9 @@ Add the underneath snippet to the html tag in the render function, save and it s
   
 
   
-
-<button  value="Submit">Submit</button>
-
+```html
+<button value="Submit">Submit</button>
+```
   
 
   
@@ -260,62 +188,28 @@ This is the most basic we can get, a static button. If you go to `/index.js` you
 
 Of course a static custom webcomponent is ridiculous. So let's upgrade the render function.
 
-  
-
-  
-
+```javascript
 static get properties() {
-
-  
-
-return {
-
-  
-
-value: { type: String},
-
-  
-
+  return {
+    value: { type: String},
+  }
 }
-
-  
-
-}
-
-  
-
 render() {
-
-  
-
-return html`
-
-  
-
-<button  value="${this.value}">${this.value}</button>
-
-  
-
-`;
-
-  
-
+  return html`
+    <button  value="${this.value}">${this.value}</button>
+  `;
 }
-
-  
+```
 
 Now we can pass a variable to each instance of the component.
 
   
 
   
-
+```html
 <ia-button  value="Lorem"></ia-button>
-
-  
-
 <ia-button  value="Ipsum"></ia-button>
-
+```
   
 
   
@@ -329,9 +223,9 @@ Standard button clicks are bubbled events, meaning they pass up from child to pa
   
 
   
-
-<ia-button  value="bar"  @click=${e  => console.log('foo', e)}></ia-button>
-
+```html
+<ia-button value="bar" @click=${e => console.log('foo', e)}></ia-button>
+```
   
 
   
@@ -387,20 +281,11 @@ Move all styling you want specific to the primary and secondary button in these 
   
 
   
-
+```css
 :host([primary]) button {}
-
-  
-
 :host([secondary]) button {}
-
-  
-
-  
-
+```
 When you save this, the styling looks weird, because we haven't added the primary or secondary tag yet.
-
-  
 
 Go to `index.js` and add primary or secondary to the button like so:
 
@@ -413,68 +298,26 @@ Go to `index.js` and add primary or secondary to the button like so:
   
 
 It could look a bit like this:
-
-  
-
-  
-
+```css
 :host([primary]) button {
-
-  
-
 background-color: #4CAF50;
-
-  
-
 border: 2px solid #4CAF50;
-
-  
-
 }
-
-  
 
 :host([primary]) button:hover {
-
-  
-
 background-color: #37903b;
-
-  
-
 border: 2px solid #37903b;
-
-  
-
 }
-
-  
 
 :host([secondary]) button {
-
-  
-
 background-color: #bfbfbf;
-
-  
-
 border: 2px solid white;
-
-  
-
 }
-
-  
 
 :host([secondary]) button:hover {
-
-  
-
 background-color: #cfcfcf;
-
-  
-
 }
+```
 
   
 
@@ -513,8 +356,9 @@ In `style/style.js` we can define our globally used styling.
   
 
   
-
+```javascript
 export const primaryGreen = css`#4CAF50`;
+```
 
   
 
@@ -555,43 +399,44 @@ It's nothing more than a predefined container for content. Let's make it.
 Cards are just a div that contain something. So the usage would look like this:
 
   
-
-    <ia-card>
-	    <p>This is the content of my card</p>
-    </ia-card>
-
+```javascript
+<ia-card>
+  <p>This is the content of my card</p>
+</ia-card>
+```
   
-
 But how do we get the content "This is the content of my card" to display inside the ia-card. If you add the above, it will not display.
-
-  
 
 That's where [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) comes into play.
 
-    return html`
-	    <div>
-		    <div>
-			    <slot name="content">
-		    </div>
-	    </div>
-    `;
-    
-    <ia-card>
-	    <p slot="content">title</p>
-    </ia-card>
+```javascript
+return html`
+  <div>
+    <div>
+      <slot name="content">
+    </div>
+  </div>
+`;
+
+<ia-card>
+  <p slot="content">title</p>
+</ia-card>
+```
 
 Add the following styling
 
-    .container {
-	    min-width: 120px;
-	    margin: 20px;
-	    padding: 10px;
-	    background-color: #fafaff;
-	    border-radius: 10px;
-	    box-shadow: 9px  8px  5px  0px  rgba(0,0,0,0.08);
-	    -webkit-box-shadow: 9px  8px  5px  0px  rgba(0,0,0,0.08);
-	    -moz-box-shadow: 9px  8px  5px  0px  rgba(0,0,0,0.08);
-    }
+```css
+.container {
+  min-width: 120px;
+  margin: 20px;
+  padding: 10px;
+  background-color: #fafaff;
+  border-radius: 10px;
+  box-shadow: 9px  8px  5px  0px  rgba(0,0,0,0.08);
+  -webkit-box-shadow: 9px  8px  5px  0px  rgba(0,0,0,0.08);
+  -moz-box-shadow: 9px  8px  5px  0px  rgba(0,0,0,0.08);
+}
+```
 
 This card could now be the foundation to create loading icon cards, posts, containers, etc.
 
@@ -601,63 +446,72 @@ We now have a button and a card, let's make a third component where we combine t
 
 import both components into `interval/interval.js`
 
-    import  '../button/ia-button.js';
-    import  '../card/ia-card.js';
+```javascript
+import  '../button/ia-button.js';
+import  '../card/ia-card.js';
+```
 
 and import the interval component into `index.js`
 We want to use both the card and the button.
 
-    render() {
-		return  html`
-			<ia-card>
-				<div  slot="content">
-					<ia-button  value="add time"  primary></ia-button>
-				</div>
-			</ia-card>
-		`;
-	}
-
+```javascript
+render() {
+  return  html`
+    <ia-card>
+      <div  slot="content">
+        <ia-button  value="add time"  primary></ia-button>
+      </div>
+    </ia-card>
+  `;
+}
+```
 we want to display every current time when we press the button.
 So let's add an event listener to the click and push the current time to a properties"times". And let's instantiate the property "times" to an empty array.
 
-    class  InterActiefIntervalClock  extends  LitElement {
-	    static  get  properties() {
-	    	return {
-	    		times: { type:  Array },
-	    	}
-	    }
-	    
-	    constructor() {
-	    	super();
-	    	this.times = [];
-	    }
-	    
-	    render() {
-	    	return  html`
-		    	<ia-card>
-		    		<div  slot="content">
-		    			<ia-button  value="add time"  primary  @click="${() =>  this.addNewtime()}"></ia-button>
-		    		</div>
-		    	</ia-card>
-	    	`;
-    	}
-	    
-	    addNewtime() {
-			this.times = [...this.times, new  Date()];
-		}
+```javascript
+class InterActiefIntervalClock extends LitElement {
+  static get properties() {
+    return {
+      times: { type: Array },
     }
+  }
+
+  constructor() {
+    super();
+    this.times = [];
+  }
+
+  render() {
+    return html`
+          <ia-card>
+            <div slot="content">
+              <ia-button value="add time" primary @click="${() => this.addNewtime()}"></ia-button>
+            </div>
+          </ia-card>
+	    	`;
+  }
+
+  addNewtime() {
+    this.times = [...this.times, new Date()];
+  }
+}
+```
 
 This keeps track of our times, but we would of course like to display them as well. Changing a property defined in the `properties` getter automatically triggers a rerender of the changed values, unchanged items will not render again even if they're a part of the same render function. 
 
 Arrays can be mapped via a template:
 
-    timeTemplate(time) {
-	    return  html`<p>${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}</p>`;
-    }
+```javascript
+timeTemplate(time) {
+  return html`<p>${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}</p>`;
+}
+```
 
 Which we can trigger inside our content slot, under the button
 
-    ${this.times.map(this.timeTemplate)}
+```javascript
+${this.times.map(this.timeTemplate)}
+```
     
 Each click will now save and display that time. 
 If you go back to `index.js` you can duplicate the interval clock multiple times and each one will work indiviually. 

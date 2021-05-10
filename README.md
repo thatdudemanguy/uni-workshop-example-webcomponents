@@ -411,10 +411,8 @@ That's where [slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sl
 
 ```javascript
 return html`
-  <div>
-    <div>
-      <slot name="content">
-    </div>
+  <div class="container">
+	<slot name="content">
   </div>
 `;
 
